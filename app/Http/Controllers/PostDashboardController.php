@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostDashboardController extends Controller
@@ -12,7 +13,9 @@ class PostDashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard', ['posts' => Post::latest()->paginate(7)]);
+        $posts = Post::latest()->where('author_id', Auth::user()->id)->paginate(7);
+
+        return view('dashboard', ['posts' => $posts]);
     }
 
     /**

@@ -1,4 +1,5 @@
 <section class="p-3 sm:p-5 antialiased">
+    <h2 class="text-xl font-semibold pl-4 mb-3">Post by: {{ Auth::user()->name }}</h2>
     <div class="max-w-screen-xl px-4">
         <div class="bg-white dark:bg-gray-800 relative border sm:rounded-lg overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-start space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -30,7 +31,6 @@
                         <tr>
                             <th scope="col" class="px-4 py-4">#</th>
                             <th scope="col" class="px-4 py-3">Title</th>
-                            <th scope="col" class="px-4 py-3">Author</th>
                             <th scope="col" class="px-4 py-3">Category</th>
                             <th scope="col" class="px-4 py-3">Published at</th>
                             <th scope="col" class="px-4 py-3">
@@ -43,7 +43,6 @@
                         <tr class="border-b dark:border-gray-700">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $loop->iteration }}</th>
                             <td class="px-4 py-3">{{ $post->title }}</td>
-                            <td class="px-4 py-3 max-w-[12rem] truncate">{{ $post->author->name }}</td>
                             <td class="px-4 py-3">{{ $post->category->name }}</td>
                             <td class="px-4 py-3">{{ $post->created_at->diffForHumans() }}</td>
                             <td class="px-4 py-3 flex items-center justify-end">
@@ -88,9 +87,11 @@
                     </tbody>
                 </table>
             </div>
+            @if ($posts->hasPages())
             <div class="p-4">
                 {{ $posts->links() }}
             </div>
+            @endif
         </div>
     </div>
 </section>
