@@ -1,5 +1,5 @@
 <section class="p-3 sm:p-5 antialiased">
-    <div class="max-w-screen-xl px-4>
+    <div class="max-w-screen-xl px-4">
         <div class="bg-white dark:bg-gray-800 relative border sm:rounded-lg overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-start space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
