@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->where('author_id', Auth::user()->id)->paginate(7);
+        $posts = Post::latest()->where('author_id', Auth::user()->id);
 
-        return view('dashboard', ['posts' => $posts]);
+        if (request('keyword')) {
+            $posts->where('title', 'like', '%' . request('keyword') . '%');
+        }
+
+        return view('dashboard', ['posts' => $posts->paginate(5)->withQueryString()]);
     }
 
     /**
