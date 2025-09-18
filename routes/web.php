@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 Route::get('/posts', function () {
     // $posts = Post::with(['author', 'category'])->latest()->get();
-    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(5)->withQueryString();
+    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
 
     return view('posts', ['title' => 'Blog', 'posts' => $posts]);
 });
@@ -33,6 +33,8 @@ Route::get('/contact', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard/{post:slug}', [PostDashboardController::class, 'show'])->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
