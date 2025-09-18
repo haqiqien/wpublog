@@ -4,7 +4,8 @@
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add Product</h3>
     </div>
     <!-- Modal body -->
-    <form action="#">
+    <form action="/dashboard" method="POST">
+        @csrf
         <div class="mb-4">
             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
             <input type="text" name="title" id="title" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type post title name" required="">
