@@ -37,7 +37,7 @@ class PostDashboardController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:posts|min:4',
             'category_id' => 'required',
             'body' => 'required'
         ]);
