@@ -80,8 +80,10 @@ class PostDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/dashboard')->with('success', 'Post has been deleted!');
     }
 }
