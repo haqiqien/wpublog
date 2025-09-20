@@ -55,9 +55,13 @@
 
         {{-- upload avatar --}}
         <div>
-            <label class="block mb-2 text-sm font-medium text-gray-800 dark:text-white" for="user_avatar">Upload file</label>
-            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
-            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
+            <label class="block mb-2 text-sm font-medium text-gray-800 dark:text-white" for="avatar">Upload avatar</label>
+            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="avatar_help" id="avatar" name="avatar" type="file">
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="avatar_help">.png or .jpg</div>
+        </div>
+
+        <div>
+            <img class="w-20 h-20 rounded-full" src="{{ asset('img/avatar.png') }}" alt="Large avatar">
         </div>
 
         <div class="flex items-center gap-4">
