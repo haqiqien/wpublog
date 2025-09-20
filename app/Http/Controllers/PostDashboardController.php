@@ -72,9 +72,40 @@ class PostDashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        // $rules = [
+        //     'category_id' => 'required',
+        //     'body' => 'required'
+        // ];
+
+        // if ($request->title != $post->title) {
+        //     $rules['title'] = 'required|unique:posts|min:4';
+        // }
+
+        // $validated = $request->validate($rules);
+
+        // $post->update([
+        //     'title' => $request->title,
+        //     'category_id' => $request->category_id,
+        //     'slug' => Str::slug($request->title),
+        //     'body' => $request->body,
+        // ]);
+
+        $request->validate([
+            'title' => 'required|min:4|unique:posts,title,' . $post->id,
+            'category_id' => 'required',
+            'body' => 'required'
+        ]);
+
+        $post->update([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'slug' => Str::slug($request->title),
+            'body' => $request->body,
+        ]);
+
+        return redirect('/dashboard')->with('success', 'Post has been updated!');
     }
 
     /**
