@@ -64,7 +64,7 @@
         </div>
 
         <div>
-            <img class="w-20 h-20 rounded-full" src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('img/avatar.png') }}" alt="{{ $user->name }}">
+            <img class="w-20 h-20 rounded-full" src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('img/avatar.png') }}" alt="{{ $user->name }}" id="avatar-preview">
         </div>
 
         <div class="flex items-center gap-4">
@@ -82,3 +82,19 @@
         </div>
     </form>
 </section>
+
+<script>
+      const input = document.getElementById('avatar');
+  const previewPhoto = () => {
+    const file = input.files;
+    if (file) {
+      const fileReader = new FileReader();
+      const preview = document.getElementById('avatar-preview');
+      fileReader.onload = function(event) {
+        preview.setAttribute('src', event.target.result);
+      }
+      fileReader.readAsDataURL(file[0]);
+    }
+  }
+  input.addEventListener("change", previewPhoto);
+</script>
