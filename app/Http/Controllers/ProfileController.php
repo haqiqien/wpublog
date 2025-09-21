@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -36,6 +37,10 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
+            if(!empty($request->user()->avatar)) {
+                // Delete old avatar
+                Storage::disk('public')->delete($request->user()->avatar);
+            }
             $path = $request->file('avatar')->store('img', 'public');
             $validatedData['avatar'] = $path;
         }
