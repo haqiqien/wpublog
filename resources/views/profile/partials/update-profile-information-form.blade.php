@@ -1,3 +1,7 @@
+@push('style')
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endpush
+
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -83,6 +87,7 @@
     </form>
 </section>
 
+@push('script')
 <script>
       const input = document.getElementById('avatar');
   const previewPhoto = () => {
@@ -98,3 +103,6 @@
   }
   input.addEventListener("change", previewPhoto);
 </script>
+
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+@endpush
