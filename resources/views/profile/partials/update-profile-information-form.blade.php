@@ -1,5 +1,8 @@
 @push('style')
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"/>
 @endpush
 
 <section>
@@ -104,5 +107,20 @@
   input.addEventListener("change", previewPhoto);
 </script>
 
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateType);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
+    const inputElement = document.querySelector('#avatar');
+
+    const pond = FilePond.create(inputElement, {
+        acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
+        maxFileSize: '2MB',
+    });
+</script>
 @endpush
