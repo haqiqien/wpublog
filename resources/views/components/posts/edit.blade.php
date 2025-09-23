@@ -7,7 +7,7 @@
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit Post</h3>
     </div>
 
-    <form action="/dashboard/{{ $post->slug }}" method="POST">
+    <form action="/dashboard/{{ $post->slug }}" method="POST" id="post-form">
         @csrf
         @method('PATCH')
         <div class="mb-4">
@@ -32,7 +32,10 @@
         </div>
         <div class="sm:col-span-2 mb-4">
             <label for="body" name="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Body</label>
-            <textarea id="body" name="body" rows="4" class="@error('body') border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 border @enderror block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Write post body here">{{ old('body') ?? $post->body }}</textarea>
+            <textarea id="body" name="body" rows="4" class="@error('body') border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 border @enderror block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 hidden" placeholder="Write post body here">{{ old('body') ?? $post->body }}</textarea>
+            <div id="editor">
+                {!! old('body', $post->body) !!}
+            </div>
             @error('body')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> {{ $message }}</p>
             @enderror
@@ -47,3 +50,31 @@
         </div>
     </form>
 </div>
+
+@push('script')
+    <!-- Include the Quill library -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Type post body here...',
+    });
+
+    const postForm = document.querySelector('#post-form');
+    const postBody = document.querySelector('#body');
+    const quillEditor = document.querySelector('#editor');
+
+    postForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Populate hidden form on submit
+        const content = quillEditor.children[0].innerHTML;
+
+        // console.log(content);
+        postBody.value = content;
+
+        this.submit();
+    });
+    </script>
+@endpush
