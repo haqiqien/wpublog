@@ -39,7 +39,7 @@ class PostDashboardController extends Controller
         $validated = $request->validate([
             'title' => 'required|unique:posts|min:4',
             'category_id' => 'required',
-            'body' => 'required'
+            'body' => 'required|min:15'
         ]);
 
         Post::create([
